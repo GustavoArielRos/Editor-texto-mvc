@@ -1,0 +1,39 @@
+﻿@model Documento//essa view usa informações do modelo Documento
+
+<h2 class="text-center">Arquivo Word</h2>
+<div class="row">
+    <div class="col-md-12">
+        
+        @*Formulário.quando enviar, o formulário irá fazer uma requisição POST para o EditarDocumento
+            localizado no controller Home
+        *@
+        <form asp-action="EditarDocumento" asp-controller="Home" method="post">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                @*a informação desse input está conectado ao atributo "titulo" da model*@
+                <input asp-for="Titulo" class="form-control"  />
+            </div>
+
+            @*pega as informações da Model e coloca nesse formato de string*@
+            <p>Criação: @Model.DataCriacao.ToString("dd/MM/yyyy HH:mm") - Última alteração: @Model.DataAlteracao.ToString("dd/MM/yyyy HH:mm")</p>
+
+            <div class="form-group mb-3">
+                @*a informação desse textarea está conectado ao atributo "Conteudo" da model*@
+                <textarea asp-for="Conteudo" style="width:68vw; height: 60vh"></textarea>
+            </div>
+
+
+            @*botao de submissao do formulario.value=criar é o texto do botao*@
+            <input type="submit" class="btn btn-primary w-100" value="Editar" />
+            
+            @*Link para a ação RemoverDocumento no qual vai enviar no parametro o "id" da Model *@
+            <a asp-action="RemoverDocumento" asp-route-id="@Model.Id" class="btn btn-info mt-3 w-100">Remover</a>
+            @*Link para a ação Index no qual só volta *@
+            <a asp-action="Index" class="btn btn-info mt-3 w-100">Voltar</a>
+
+        </form>
+
+    </div>
+</div>
